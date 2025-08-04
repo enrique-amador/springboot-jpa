@@ -26,13 +26,29 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// getOne();
-		// create();
+		create();
 		// getLists();
 		// update();
-		delete();
+		// deleteUsingID();
+		deleteUsingEntity();
 	}
 
-	private void delete() {
+	private void deleteUsingEntity() {
+		repository.findAll().forEach(System.out::println);
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter ID to delete: ");
+		Long id = scanner.nextLong();	
+		scanner.close();
+ 
+		repository.findById(id).ifPresentOrElse(p -> repository.delete(p),
+		 () -> System.out.println("Person with ID " + id + " not found."));
+
+		repository.findAll().forEach(System.out::println);
+		System.out.println("=====================================");
+
+	}
+
+	private void deleteUsingID() {
 		repository.findAll().forEach(System.out::println);
 
 		Scanner scanner = new Scanner(System.in);
@@ -46,7 +62,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		} else {
 			System.out.println("Person with ID " + id + " not found.");
 		}
-		
+
 		repository.findAll().forEach(System.out::println);
 		System.out.println("=====================================");
 
