@@ -26,8 +26,53 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// getOne();
-		create();
+		// create();
 		// getLists();
+		// update();
+		delete();
+	}
+
+	private void delete() {
+		repository.findAll().forEach(System.out::println);
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter ID to delete: ");
+		Long id = scanner.nextLong();	
+
+		scanner.close();
+		if(repository.findById(id).isPresent()) {
+			repository.deleteById(id);
+			System.out.println("Person with ID " + id + " deleted.");
+		} else {
+			System.out.println("Person with ID " + id + " not found.");
+		}
+		
+		repository.findAll().forEach(System.out::println);
+		System.out.println("=====================================");
+
+	}
+
+
+	private void update() {
+		System.out.println("Updating person with given ID");
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter ID: ");
+		Long id = scanner.nextLong();
+
+		// repository.findById(id).ifPresent( person -> {
+		if(repository.findById(id).isPresent()) {
+			Person person = repository.findById(id).get();
+			System.out.println(person);
+			System.out.print("Enter new programming language: ");
+			String programmingLanguage = scanner.next();
+			person.setProgrammingLanguage(programmingLanguage);
+			
+			Person updatedPerson = repository.save(person);
+			System.out.println("Updated person: " + updatedPerson);
+		} else {
+			System.out.println("Person with ID " + id + " not found.");
+		}
 	}
 
 	@Transactional
