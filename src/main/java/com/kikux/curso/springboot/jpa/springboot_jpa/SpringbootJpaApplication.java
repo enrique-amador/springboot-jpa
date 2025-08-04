@@ -2,12 +2,13 @@ package com.kikux.curso.springboot.jpa.springboot_jpa;
 
 
 import java.util.List;
-
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kikux.curso.springboot.jpa.springboot_jpa.entities.Person;
 import com.kikux.curso.springboot.jpa.springboot_jpa.repositories.PersonRepository;
@@ -24,18 +25,27 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		getOne();
-		// create();
+		// getOne();
+		create();
 		// getLists();
 	}
 
+	@Transactional
 	public void create() {
-		Person p = new Person(null, "Lalo", "Thor", "Python");
+		Scanner scanner = new Scanner(System.in);
+		String name = scanner.next();
+		String lastName = scanner.next();
+		String programmingLanguage = scanner.next();
+		scanner.close();
+		Person p = new Person(null, name, lastName, programmingLanguage);
 		Person personNew = repository.save(p);
 		System.out.println(personNew);
 
+		repository.findById(personNew.getId()).ifPresent(System.out::println);
+
 	}
 
+	@Transactional(readOnly = true)
 	private void getOne() {
 		// Optional<Person> optPerson = repository.findById(1L);
 		// if(optPerson.isPresent()) { we avoid an exception with this
