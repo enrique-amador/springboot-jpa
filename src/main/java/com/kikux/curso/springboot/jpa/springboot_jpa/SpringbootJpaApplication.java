@@ -26,11 +26,21 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// getOne();
-		create();
+		// create();
 		// getLists();
 		// update();
 		// deleteUsingID();
-		deleteUsingEntity();
+		// deleteUsingEntity();
+		customizedQueries();
+	}
+
+	private void customizedQueries(){
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter ID from Person to show full name: ");
+		Long id = scanner.nextLong();
+		scanner.close();
+		String fullName = repository.getFullNameById(id);
+		System.out.println("Full name for ID " + id + " is: " + fullName);
 	}
 
 	private void deleteUsingEntity() {
