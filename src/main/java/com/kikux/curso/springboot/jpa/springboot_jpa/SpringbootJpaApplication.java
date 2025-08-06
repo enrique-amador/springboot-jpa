@@ -31,9 +31,24 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		// update();
 		// deleteUsingID();
 		// deleteUsingEntity();
-		customizedQueries2();
+		// customizedQueries2();
+		customizedQueriesDistinct();
 	}
 	
+	@Transactional(readOnly = true)
+	private  void customizedQueriesDistinct(){
+		System.out.println("==============consulta nombres=======================");
+		List<String> names = repository.getAllNames();
+		names.forEach(System.out::println);
+		System.out.println("==============consulta nombres distintos=======================");
+		List<String> names2= repository.getAllDistinctNames();
+		names2.forEach(System.out::println);
+		System.out.println("==============# leng programacion distintos=======================");
+		Long num = repository.findAllProgrammingLanguagesDistinctCount();
+		System.out.println(num);
+	}
+
+	@Transactional(readOnly = true)
 	private void customizedQueries2(){
 		System.out.println("==============consulta persona y lenguaje=======================");
 		List<Object[]> results = repository.findAllMixedPersonData();
@@ -45,6 +60,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 
 	}
 
+	@Transactional(readOnly = true)
 	private void customizedQueries(){
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Escribe ID: ");
