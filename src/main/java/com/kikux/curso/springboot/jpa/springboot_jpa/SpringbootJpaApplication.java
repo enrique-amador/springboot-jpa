@@ -31,7 +31,16 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		// update();
 		// deleteUsingID();
 		// deleteUsingEntity();
-		customizedQueries();
+		customizedQueries2();
+	}
+	
+	private void customizedQueries2(){
+		System.out.println("==============consulta persona y lenguaje=======================");
+		List<Object[]> results = repository.findAllMixedPersonData();
+		results.forEach(o -> System.out.println(o[0] + " & Language: " + o[1]));
+		System.out.println("==============consulta clase persona con solo name y lastname=======================");
+		repository.findAllCostumizedPerson().forEach(System.out::println);
+
 	}
 
 	private void customizedQueries(){
