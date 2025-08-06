@@ -49,6 +49,9 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		System.out.println("==============Rango de names Ordenados por Name desc y LastName asc=======================");
 		List<Person> namesInRange2 = repository.getByNameBetween("L", "S");
 		namesInRange2.forEach(System.out::println);
+
+		System.out.println("==============Rango de names Ordenados por Name desc=======================");
+		repository.findAllByOrderByNameDesc();
 	}
 	
 	@Transactional(readOnly = true)

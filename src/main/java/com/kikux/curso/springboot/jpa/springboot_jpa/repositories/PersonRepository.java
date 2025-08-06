@@ -78,4 +78,6 @@ public interface PersonRepository extends CrudRepository<Person, Long>{
 
     @Query("select p from Person p where p.name between ?1 and ?2 order by p.name desc, p.lastname asc")
     List<Person> getByNameBetween(String name1, String name2);
+
+    List<Person> findAllByOrderByNameDesc();
 }
