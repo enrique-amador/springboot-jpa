@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.kikux.curso.springboot.jpa.springboot_jpa.dto.PersonDTO;
 import com.kikux.curso.springboot.jpa.springboot_jpa.entities.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long>{
@@ -58,5 +59,8 @@ public interface PersonRepository extends CrudRepository<Person, Long>{
     //para esto creamos un constructor con solo nombre y apellido
     @Query("select new Person(p.name, p.lastname) from Person p")
     List<Person> findAllCostumizedPerson();
-    
+
+    @Query("select new com.kikux.curso.springboot.jpa.springboot_jpa.dto.PersonDTO(p.name, p.lastname) from Person p")
+    List<PersonDTO> findAllPersonDTO();
+
 }

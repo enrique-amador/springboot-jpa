@@ -40,6 +40,8 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		results.forEach(o -> System.out.println(o[0] + " & Language: " + o[1]));
 		System.out.println("==============consulta clase persona con solo name y lastname=======================");
 		repository.findAllCostumizedPerson().forEach(System.out::println);
+		System.out.println("==============consulta personDTO=======================");
+		repository.findAllPersonDTO().forEach(System.out::println);
 
 	}
 
