@@ -32,7 +32,23 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		// deleteUsingID();
 		// deleteUsingEntity();
 		// customizedQueries2();
-		customizedQueriesDistinct();
+		// customizedQueriesDistinct();
+		rangeQuery();
+	}
+
+	@Transactional(readOnly = true)
+	private void rangeQuery() {
+		System.out.println("==============Rango de IDs=======================");
+		List<Person> peopleInRange = repository.findByIdBetween(2L, 5L);
+		peopleInRange.forEach(System.out::println);
+
+		System.out.println("==============Rango de names Ordenados por Name Asc y Programming Language Desc=======================");
+		List<Person> namesInRange = repository.findByNameBetweenOrderByNameAscProgrammingLanguageDesc("L", "S");
+		namesInRange.forEach(System.out::println);
+
+		System.out.println("==============Rango de names Ordenados por Name desc y LastName asc=======================");
+		List<Person> namesInRange2 = repository.getByNameBetween("L", "S");
+		namesInRange2.forEach(System.out::println);
 	}
 	
 	@Transactional(readOnly = true)
