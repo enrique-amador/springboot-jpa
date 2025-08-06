@@ -36,11 +36,17 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 
 	private void customizedQueries(){
 		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter ID from Person to show full name: ");
+		System.out.print("Escribe ID: ");
 		Long id = scanner.nextLong();
 		scanner.close();
 		String fullName = repository.getFullNameById(id);
-		System.out.println("Full name for ID " + id + " is: " + fullName);
+		System.out.println("==============Full Name By ID=======================");
+		System.out.println(fullName);
+		System.out.println("==============Person List=======================");
+		repository.obtenerPersonDataList().forEach(o -> System.out.println(o[0] + " " + o[1] + " " + o[2] + " " + o[3]));
+		System.out.println("==============Person Data By ID=======================");
+		Object[] personData1 = (Object[])repository.obtenerPersonDataPorId(id);
+		System.out.println("ID: " + personData1[0] + ", Name: " + personData1[1] + ", Lastname: " + personData1[2] + ", Programming Language: " + personData1[3]);
 	}
 
 	private void deleteUsingEntity() {
